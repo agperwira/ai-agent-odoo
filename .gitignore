@@ -1,0 +1,47 @@
+# ── Environment & Secrets ─────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+credential.txt
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual Environments ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+
+# ── Agent Sessions ────────────────────────────────────────────────────────────
+sessions/
+scratch/
+
+# ── Odoo ──────────────────────────────────────────────────────────────────────
+addons/**/static/node_modules/
+addons/**/__pycache__/
+*.pyc
+
+# ── Docker ────────────────────────────────────────────────────────────────────
+# (docker-compose.yml dan Dockerfile tetap di-track)
+
+# ── Database & Logs ───────────────────────────────────────────────────────────
+*.log
+*.sqlite
+*.db
+
+# ── OS & Editor ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

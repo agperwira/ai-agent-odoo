@@ -1,0 +1,470 @@
+<mxfile host="app.diagrams.net" agent="Claude" pages="4">
+  <diagram id="tab1-overview" name="1. System Overview">
+    <mxGraphModel dx="2062" dy="1040" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;" value="Widya Analytics — Odoo 17 AI Agent · System Overview" vertex="1">
+          <mxGeometry height="40" width="1000" x="90" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="grp-ui" parent="1" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;" value="User Interfaces" vertex="1">
+          <mxGeometry height="240" width="220" x="130" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="cli" parent="grp-ui" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="CLI (main.py)&#xa;python main.py" vertex="1">
+          <mxGeometry height="60" width="180" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="tg" parent="grp-ui" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Telegram Bot&#xa;(main_telegram.py)" vertex="1">
+          <mxGeometry height="60" width="180" x="20" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="grp-auth" parent="1" style="swimlane;startSize=30;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;fontStyle=1;" value="Access Control" vertex="1">
+          <mxGeometry height="120" width="220" x="130" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="auth" parent="grp-auth" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="Whitelist&#xa;TELEGRAM_ADMIN_IDS&#xa;TELEGRAM_ALLOWED_IDS" vertex="1">
+          <mxGeometry height="55" width="190" x="15" y="45" as="geometry" />
+        </mxCell>
+        <mxCell id="grp-agent" parent="1" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;" value="Agent Core  (utils/agent.py)" vertex="1">
+          <mxGeometry height="400" width="320" x="380" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="cwagent" parent="grp-agent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#82b366;fontColor=#ffffff;strokeColor=#82b366;" value="chat_with_agent()" vertex="1">
+          <mxGeometry height="50" width="200" x="60" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Gno0tW2C8k2LL6Ch9InO-2" edge="1" parent="grp-agent" source="llmcall" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="dispatch">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="llmcall" parent="grp-agent" style="rounded=1;whiteSpace=wrap;html=1;" value="_llm_call()&#xa;Retry + Backoff" vertex="1">
+          <mxGeometry height="50" width="200" x="60" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Gno0tW2C8k2LL6Ch9InO-3" edge="1" parent="grp-agent" source="dispatch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="session">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dispatch" parent="grp-agent" style="rounded=1;whiteSpace=wrap;html=1;" value="_dispatch()&#xa;Tool Router (22 tools)" vertex="1">
+          <mxGeometry height="50" width="200" x="60" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="session" parent="grp-agent" style="rounded=1;whiteSpace=wrap;html=1;" value="Session Manager&#xa;load / save / trim history" vertex="1">
+          <mxGeometry height="50" width="200" x="60" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" edge="1" parent="grp-agent" source="cwagent" target="llmcall">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="grp-ai" parent="1" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;fontStyle=1;" value="SumoPod AI  (OpenAI-compatible)" vertex="1">
+          <mxGeometry height="160" width="260" x="742.14" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="llm" parent="grp-ai" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#9673a6;fontColor=#ffffff;strokeColor=#9673a6;" value="LLM (gpt-4o-mini)" vertex="1">
+          <mxGeometry height="45" width="220" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="tools-api" parent="grp-ai" style="rounded=1;whiteSpace=wrap;html=1;" value="Function Calling — 22 tool schemas" vertex="1">
+          <mxGeometry height="30" width="220" x="20" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="Gno0tW2C8k2LL6Ch9InO-11" edge="1" parent="1" source="grp-odoo" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="grp-store">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Gno0tW2C8k2LL6Ch9InO-12" connectable="0" parent="Gno0tW2C8k2LL6Ch9InO-11" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="odoo database" vertex="1">
+          <mxGeometry relative="1" x="-0.3359" as="geometry">
+            <mxPoint y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="grp-odoo" parent="1" style="swimlane;startSize=30;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;fontStyle=1;" value="Odoo Backend  (utils/odoo/)" vertex="1">
+          <mxGeometry height="310" width="260" x="742.14" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="sales-b" parent="grp-odoo" style="rounded=1;whiteSpace=wrap;html=1;" value="sales.py" vertex="1">
+          <mxGeometry height="30" width="100" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="purchase-b" parent="grp-odoo" style="rounded=1;whiteSpace=wrap;html=1;" value="purchase.py" vertex="1">
+          <mxGeometry height="30" width="100" x="140" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="inv-b" parent="grp-odoo" style="rounded=1;whiteSpace=wrap;html=1;" value="inventory.py" vertex="1">
+          <mxGeometry height="30" width="100" x="20" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="acc-b" parent="grp-odoo" style="rounded=1;whiteSpace=wrap;html=1;" value="accounting.py" vertex="1">
+          <mxGeometry height="30" width="100" x="140" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="part-b" parent="grp-odoo" style="rounded=1;whiteSpace=wrap;html=1;" value="partner.py" vertex="1">
+          <mxGeometry height="30" width="100" x="20" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="hr-b" parent="grp-odoo" style="rounded=1;whiteSpace=wrap;html=1;" value="hr.py" vertex="1">
+          <mxGeometry height="30" width="100" x="140" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="base-b" parent="grp-odoo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d79b00;fontColor=#ffffff;strokeColor=#d79b00;" value="base.py  —  XML-RPC / auto-reconnect" vertex="1">
+          <mxGeometry height="40" width="220" x="20" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="init-b" parent="grp-odoo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="__init__.py  —  OdooBackend (all mixins)" vertex="1">
+          <mxGeometry height="35" width="220" x="20" y="255" as="geometry" />
+        </mxCell>
+        <mxCell id="grp-store" parent="1" style="swimlane;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;fontSize=13;fontStyle=1;" value="Storage" vertex="1">
+          <mxGeometry height="160" width="260" x="742.14" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="odoo17" parent="grp-store" style="rounded=1;whiteSpace=wrap;html=1;" value="Odoo 17 Server  :8069/xmlrpc/2" vertex="1">
+          <mxGeometry height="40" width="220" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="pg" parent="grp-store" style="rounded=1;whiteSpace=wrap;html=1;" value="PostgreSQL 15" vertex="1">
+          <mxGeometry height="35" width="220" x="20" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="sessions" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="sessions/&#xa;*.json  (per-user history)" vertex="1">
+          <mxGeometry height="80" width="200" x="440" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="e-cli-agent" edge="1" parent="1" source="cli" target="cwagent" value="query/input">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-tg-agent" edge="1" parent="1" source="tg" style="edgeStyle=orthogonalEdgeStyle;" target="cwagent" value="query/input">
+          <mxGeometry relative="1" x="-0.3455" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="410" y="290" />
+              <mxPoint x="410" y="195" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-session-files" edge="1" parent="1" source="session" target="sessions">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Gno0tW2C8k2LL6Ch9InO-13" connectable="0" parent="e-session-files" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="every chat/respond and tools will be saved&lt;div&gt;for every user&lt;/div&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0162" y="-1" as="geometry">
+            <mxPoint x="1" y="12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-pg" edge="1" parent="1" source="odoo17" target="pg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Gno0tW2C8k2LL6Ch9InO-1" edge="1" parent="1" source="tg" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" target="grp-auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Gno0tW2C8k2LL6Ch9InO-4" edge="1" parent="1" source="llmcall" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="grp-ai">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Gno0tW2C8k2LL6Ch9InO-5" connectable="0" parent="Gno0tW2C8k2LL6Ch9InO-4" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="LLM service" vertex="1">
+          <mxGeometry relative="1" x="0.5948" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Gno0tW2C8k2LL6Ch9InO-6" edge="1" parent="1" source="dispatch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="grp-odoo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Gno0tW2C8k2LL6Ch9InO-7" connectable="0" parent="Gno0tW2C8k2LL6Ch9InO-6" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Call odoo tools&amp;nbsp;" vertex="1">
+          <mxGeometry relative="1" x="0.224" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="tab2-flow" name="2. Chat Request Flow">
+    <mxGraphModel dx="2474" dy="1248" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=17;fontStyle=1;" value="Chat Request Flow — Single Turn (Sequence Diagram)" vertex="1">
+          <mxGeometry height="36" width="800" x="155" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sw-user" parent="1" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;" value="User" vertex="1">
+          <mxGeometry height="840" width="160" x="40" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="sw-user" style="rounded=1;whiteSpace=wrap;html=1;" value="1. Send message" vertex="1">
+          <mxGeometry height="40" width="130" x="15" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s14" parent="sw-user" style="rounded=1;whiteSpace=wrap;html=1;" value="14. Display reply" vertex="1">
+          <mxGeometry height="40" width="130" x="15" y="777.5" as="geometry" />
+        </mxCell>
+        <mxCell id="sw-agent" parent="1" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;" value="Agent Core" vertex="1">
+          <mxGeometry height="840" width="210" x="220" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" parent="sw-agent" style="rounded=1;whiteSpace=wrap;html=1;" value="2. load_history(session_id)" vertex="1">
+          <mxGeometry height="40" width="180" x="15" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" parent="sw-agent" style="rounded=1;whiteSpace=wrap;html=1;" value="3. append user msg&#xa;   trim_history(max=20)" vertex="1">
+          <mxGeometry height="50" width="180" x="15" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" parent="sw-agent" style="rounded=1;whiteSpace=wrap;html=1;" value="4. _llm_call #1&#xa;   [SYSTEM] + history + 22 tools" vertex="1">
+          <mxGeometry height="55" width="180" x="15" y="252.5" as="geometry" />
+        </mxCell>
+        <mxCell id="s7" parent="sw-agent" style="rounded=1;whiteSpace=wrap;html=1;" value="7. _dispatch()&#xa;   route to mixin method" vertex="1">
+          <mxGeometry height="55" width="180" x="15" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="s10" parent="sw-agent" style="rounded=1;whiteSpace=wrap;html=1;" value="10. Return data&#xa;    append tool result to history" vertex="1">
+          <mxGeometry height="55" width="180" x="15" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="s11" parent="sw-agent" style="rounded=1;whiteSpace=wrap;html=1;" value="11. _llm_call #2&#xa;    use_tools=False (summarize)" vertex="1">
+          <mxGeometry height="55" width="180" x="15" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="s13" parent="sw-agent" style="rounded=1;whiteSpace=wrap;html=1;" value="13. append assistant reply&#xa;    save_history()" vertex="1">
+          <mxGeometry height="55" width="180" x="15" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="sw-llm" parent="1" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;" value="SumoPod AI (LLM)" vertex="1">
+          <mxGeometry height="840" width="210" x="450" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="pq69kT7OXQTVHiSNVdqT-6" edge="1" parent="sw-llm" source="s5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="s6b">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="280" />
+              <mxPoint x="200" y="477" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s5" parent="sw-llm" style="rhombus;whiteSpace=wrap;html=1;" value="5. Analyze request&#xa;   Use tool?" vertex="1">
+          <mxGeometry height="80" width="170" x="20" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="s6a" parent="sw-llm" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="6a. Direct text reply" vertex="1">
+          <mxGeometry height="45" width="170" x="20" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="s6b" parent="sw-llm" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="6b. Return tool_calls[]&#xa;    with JSON arguments" vertex="1">
+          <mxGeometry height="55" width="170" x="20" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="s12" parent="sw-llm" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="12. Generate final&#xa;    human-readable reply" vertex="1">
+          <mxGeometry height="55" width="170" x="20" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="sw-odoo" parent="1" style="swimlane;startSize=30;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Odoo Backend" vertex="1">
+          <mxGeometry height="840" width="210" x="680" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="s8" parent="sw-odoo" style="rounded=1;whiteSpace=wrap;html=1;" value="8. Execute mixin method&#xa;   (sales/hr/accounting/...)" vertex="1">
+          <mxGeometry height="55" width="180" x="15" y="505" as="geometry" />
+        </mxCell>
+        <mxCell id="sw-db" parent="1" style="swimlane;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;" value="Odoo Server / DB" vertex="1">
+          <mxGeometry height="840" width="210" x="910" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="s9" parent="sw-db" style="rounded=1;whiteSpace=wrap;html=1;" value="9. execute_kw()&#xa;   XML-RPC call" vertex="1">
+          <mxGeometry height="55" width="180" x="20" y="505" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" edge="1" parent="1" source="s1" target="s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" edge="1" parent="1" source="s2" target="s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f3" edge="1" parent="1" source="s3" target="s4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f5a" edge="1" parent="1" source="s5" target="s6a" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f6" edge="1" parent="1" source="s6b" target="s7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f8" edge="1" parent="1" source="s8" target="s9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f10" edge="1" parent="1" source="s10" target="s11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f11" edge="1" parent="1" source="s11" target="s12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f13" edge="1" parent="1" source="s13" target="s14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pq69kT7OXQTVHiSNVdqT-7" edge="1" parent="1" source="s6a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="s13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pq69kT7OXQTVHiSNVdqT-8" edge="1" parent="1" source="s7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="s8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="325" y="613" />
+              <mxPoint x="695" y="613" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pq69kT7OXQTVHiSNVdqT-10" edge="1" parent="1" source="s9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="s10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1020" y="678" />
+              <mxPoint x="673" y="678" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pq69kT7OXQTVHiSNVdqT-11" edge="1" parent="1" source="s12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="s13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="555" y="820" />
+              <mxPoint x="325" y="820" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pq69kT7OXQTVHiSNVdqT-12" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="s5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="tab3-odoo" name="3. OdooBackend Modules">
+    <mxGraphModel dx="1546" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=17;fontStyle=1;" value="OdooBackend — Tools Architecture &amp;amp; All Methods" vertex="1">
+          <mxGeometry height="36" width="900" x="230" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vlf6WDlWuwk7BYYc78wS-2" edge="1" parent="1" source="ob" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=1;" target="hr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ob" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d79b00;fontColor=#ffffff;strokeColor=#d79b00;fontSize=14;fontStyle=1;" value="OdooBackend&#xa;utils/odoo/__init__.py" vertex="1">
+          <mxGeometry height="60" width="260" x="530" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="base" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;fillColor=#f5f5f5;strokeColor=#666666;" value="base.py — OdooBase&#xa;──────────────────────────&#xa;_connect()&#xa;_exec(model, method, args)&#xa;_parse_domain(raw)&#xa;_parse_fields(raw)&#xa;search_read(model, domain, fields)" vertex="1">
+          <mxGeometry height="130" width="260" x="690" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="e-ob-base" edge="1" parent="1" source="ob" style="edgeStyle=orthogonalEdgeStyle;curved=1;" target="base" value="\">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sales" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;fillColor=#d5e8d4;strokeColor=#82b366;" value="sales.py — SalesMixin&#xa;──────────────────────────&#xa;get_total_revenue()&#xa;get_sales_summary(from, to)&#xa;create_sales_order(partner, product, qty)&#xa;confirm_sales_order(order_id)&#xa;top_products(limit, from, to, order_by)&#xa;──────────────────────────&#xa;sale.order · sale.order.line" vertex="1">
+          <mxGeometry height="175" width="270" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="inventory" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;fillColor=#d5e8d4;strokeColor=#82b366;" value="inventory.py — InventoryMixin&#xa;──────────────────────────&#xa;get_stock(product_name)&#xa;get_delivery(partner, state, limit)&#xa;──────────────────────────&#xa;product.product · stock.picking" vertex="1">
+          <mxGeometry height="125" width="270" x="692" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="accounting" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;fillColor=#ffe6cc;strokeColor=#d79b00;" value="accounting.py — AccountingMixin&#xa;──────────────────────────&#xa;create_invoice(partner, lines, date)&#xa;get_invoice_list(partner, state)&#xa;post_invoice(invoice_id)&#xa;register_payment(invoice, amount, date)&#xa;get_customer_receivables(partner)&#xa;──────────────────────────&#xa;account.move · account.move.line&#xa;account.payment.register" vertex="1">
+          <mxGeometry height="195" width="280" x="1010" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="partner" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="partner.py — PartnerMixin&#xa;──────────────────────────&#xa;create_customer(name, email, phone, city)&#xa;update_record(model, record_id, values)&#xa;──────────────────────────&#xa;res.partner (+ any model)" vertex="1">
+          <mxGeometry height="125" width="270" x="360" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="hr" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;fillColor=#f8cecc;strokeColor=#b85450;" value="hr.py — HRMixin&#xa;──────────────────────────&#xa;create_employee(name, title, dept, pin)&#xa;set_employee_pin(employee_id, pin)&#xa;get_employees(name, department)&#xa;get_attendance(employee, from, to)&#xa;get_attendance_summary(from, to, dept)&#xa;get_leaves(employee, state, from, to)&#xa;──────────────────────────&#xa;hr.employee · hr.attendance · hr.leave" vertex="1">
+          <mxGeometry height="200" width="270" x="40" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="ob" style="edgeStyle=orthogonalEdgeStyle;curved=1;" target="sales">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="ob" style="edgeStyle=orthogonalEdgeStyle;curved=1;" target="inventory">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="ob" style="edgeStyle=orthogonalEdgeStyle;curved=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="accounting">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="ob" style="edgeStyle=orthogonalEdgeStyle;curved=1;" target="partner">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="note" parent="1" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=12;" value="➕ To add a new module:&#xa;1. Create utils/odoo/new_module.py with a Mixin class&#xa;2. Register it in utils/odoo/__init__.py inheritance list&#xa;3. Add tool schemas in utils/tools_schema.py&#xa;4. Add dispatch cases in utils/agent.py" vertex="1">
+          <mxGeometry height="110" width="300" x="990" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="vlf6WDlWuwk7BYYc78wS-1" edge="1" parent="1" source="ob" style="edgeStyle=orthogonalEdgeStyle;curved=1;" target="purchase" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="350" as="sourcePoint" />
+            <mxPoint x="475" y="775" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="purchase" parent="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;fillColor=#d5e8d4;strokeColor=#82b366;" value="purchase.py — PurchaseMixin&#xa;──────────────────────────&#xa;create_purchase_order(partner, product, qty)&#xa;──────────────────────────&#xa;purchase.order" vertex="1">
+          <mxGeometry height="105" width="270" x="360" y="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="tab4-telegram" name="4. Telegram &amp; Access Control">
+    <mxGraphModel dx="1767" dy="891" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=17;fontStyle=1;" value="Telegram Bot — Access Control &amp; Async Message Handling" vertex="1">
+          <mxGeometry height="36" width="900" x="140" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tgu" parent="1" style="shape=mxgraph.general.person;fillColor=#fff2cc;strokeColor=#d6b656;" value="Telegram User" vertex="1">
+          <mxGeometry height="50" width="100" x="80" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="bot" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="python-telegram-bot&#xa;ApplicationBuilder + Handlers" vertex="1">
+          <mxGeometry height="50" width="200" x="200" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="e-tgu-bot" edge="1" parent="1" source="tgu" target="bot">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="auth-check" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="is_allowed&#xa;(user_id)?" vertex="1">
+          <mxGeometry height="80" width="150" x="430" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="e-bot-auth" edge="1" parent="1" source="bot" target="auth-check">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="deny" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="_deny()&#xa;Reply: &#39;Access denied&#39;&#xa;+ user&#39;s own ID shown" vertex="1">
+          <mxGeometry height="70" width="170" x="420" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="e-deny" edge="1" parent="1" source="auth-check" target="deny" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="92_lLYFoBHFYjS1Hx2ck-1" edge="1" parent="1" source="router" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="cmd-msg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="router" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Command&#xa;Router" vertex="1">
+          <mxGeometry height="80" width="140" x="660" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="e-auth-router" edge="1" parent="1" source="auth-check" target="router" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="grp-cmds-all" parent="1" style="swimlane;startSize=25;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" value="Anyone" vertex="1">
+          <mxGeometry height="150" width="160" x="910" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cmd-start" parent="grp-cmds-all" style="rounded=1;whiteSpace=wrap;html=1;" value="/start" vertex="1">
+          <mxGeometry height="30" width="130" x="15" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="cmd-myid" parent="grp-cmds-all" style="rounded=1;whiteSpace=wrap;html=1;" value="/myid — show Telegram ID" vertex="1">
+          <mxGeometry height="30" width="130" x="15" y="75" as="geometry" />
+        </mxCell>
+        <mxCell id="cmd-clear" parent="grp-cmds-all" style="rounded=1;whiteSpace=wrap;html=1;" value="/clear — reset history" vertex="1">
+          <mxGeometry height="30" width="130" x="15" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="grp-cmds-admin" parent="1" style="swimlane;startSize=25;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" value="Admin only" vertex="1">
+          <mxGeometry height="150" width="160" x="910" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="cmd-add" parent="grp-cmds-admin" style="rounded=1;whiteSpace=wrap;html=1;" value="/adduser &lt;id&gt;" vertex="1">
+          <mxGeometry height="30" width="130" x="15" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="cmd-rm" parent="grp-cmds-admin" style="rounded=1;whiteSpace=wrap;html=1;" value="/removeuser &lt;id&gt;" vertex="1">
+          <mxGeometry height="30" width="130" x="15" y="75" as="geometry" />
+        </mxCell>
+        <mxCell id="cmd-ls" parent="grp-cmds-admin" style="rounded=1;whiteSpace=wrap;html=1;" value="/listusers" vertex="1">
+          <mxGeometry height="30" width="130" x="15" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="cmd-msg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Text message&#xa;→ handle_message()" vertex="1">
+          <mxGeometry height="55" width="160" x="650" y="352.5" as="geometry" />
+        </mxCell>
+        <mxCell id="er1" edge="1" parent="1" source="router" target="grp-cmds-all">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="er2" edge="1" parent="1" source="router" target="grp-cmds-admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="async-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;" value="asyncio.wait_for(&#xa;  run_in_executor(&#xa;    _executor,         ← ThreadPoolExecutor&#xa;    chat_with_agent,&#xa;    user_text, session_id&#xa;  ),&#xa;  timeout = AGENT_TIMEOUT&#xa;)" vertex="1">
+          <mxGeometry height="150" width="260" x="600" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="e-msg-async" edge="1" parent="1" source="cmd-msg" target="async-box">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="timeout" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="asyncio.TimeoutError&#xa;&#39;Request too slow, try again&#39;" vertex="1">
+          <mxGeometry height="60" width="200" x="300" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="e-timeout" edge="1" parent="1" source="async-box" style="dashed=1;" target="timeout" value="timeout">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cwa" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#82b366;fontColor=#ffffff;strokeColor=#82b366;" value="chat_with_agent()&#xa;(utils/agent.py)" vertex="1">
+          <mxGeometry height="55" width="170" x="920" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="e-async-cwa" edge="1" parent="1" source="async-box" target="cwa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="92_lLYFoBHFYjS1Hx2ck-2" edge="1" parent="1" source="env-file" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" target="auth-check">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="195" y="270" />
+              <mxPoint x="410" y="270" />
+              <mxPoint x="410" y="90" />
+              <mxPoint x="505" y="90" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="env-file" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#fff2cc;strokeColor=#d6b656;" value=".env&#xa;TELEGRAM_ADMIN_IDS=...&#xa;TELEGRAM_ALLOWED_IDS=...&#xa;&#xa;Updated live by /adduser + /removeuser&#xa;Read fresh on every request" vertex="1">
+          <mxGeometry height="110" width="210" x="110" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="e-add-env" edge="1" parent="1" source="cmd-add" style="dashed=1;edgeStyle=orthogonalEdgeStyle;" target="env-file">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="630" y="300" />
+              <mxPoint x="630" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-rm-env" edge="1" parent="1" source="cmd-rm" style="dashed=1;edgeStyle=orthogonalEdgeStyle;" target="env-file">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sess-files" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="sessions/telegram_&lt;user_id&gt;.json&#xa;(isolated per Telegram user)" vertex="1">
+          <mxGeometry height="80" width="220" x="895" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="e-cwa-sess" edge="1" parent="1" source="cwa" target="sess-files">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

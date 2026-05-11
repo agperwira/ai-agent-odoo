@@ -45,3 +45,6 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+#credential
+*database_cred.txt
